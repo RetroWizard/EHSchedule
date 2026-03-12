@@ -52,6 +52,7 @@ function updateClock() {
         }
         document.getElementById(`text-pLunch`)?.classList.remove("currentPeriodText");
         // Add the CSS bold class to the current period table row.
+        console.log(period);
         document.getElementById(`text-p${period.periodID}`)?.classList.add("currentPeriodText");
         
         if (isTenTen && period.name != "First Period" && period.name != "Lunch" && period.name != "After School") {
@@ -110,8 +111,8 @@ function calculatePeriod(totalSeconds) {
         { name: "Period 2",      start: 29640, end: 33000, periodID: "2" },
         { name: "Period 3",      start: 33000, end: 36360, periodID: "3" },
         { name: "Period 4",      start: 36360, end: 39720, periodID: "4" },
-        { name: "Period 5",      start: 39720, end: 43080, periodID: "Lunch" },
-        { name: "Lunch",         start: 43080, end: 44880, periodID: "5" },
+        { name: "Period 5",      start: 39720, end: 43080, periodID: "5" },
+        { name: "Lunch",         start: 43080, end: 44880, periodID: "Lunch" },
         { name: "Period 6",      start: 44880, end: 48240, periodID: "6" },
         { name: "Period 7",      start: 48240, end: 51600, periodID: "7" },
         { name: "After School",  start: 51600, end: 86400, periodID: "0" },
@@ -132,8 +133,8 @@ function calculatePeriodWednesday(totalSeconds) {
         { name: "Period 2",      start: 29040, end: 31800, periodID: "2" },
         { name: "Period 3",      start: 31800, end: 34560, periodID: "3" },
         { name: "Period 4",      start: 34560, end: 37320, periodID: "4" },
-        { name: "Period 5",      start: 37320, end: 40080, periodID: "Lunch" },
-        { name: "Lunch",         start: 40080, end: 41880, periodID: "5" },
+        { name: "Period 5",      start: 37320, end: 40080, periodID: "5" },
+        { name: "Lunch",         start: 40080, end: 41880, periodID: "Lunch" },
         { name: "Period 6",      start: 41880, end: 44640, periodID: "6" },
         { name: "Period 7",      start: 44640, end: 47400, periodID: "7" },
         { name: "After School",  start: 47400, end: 86400, periodID: "0" },
