@@ -83,6 +83,12 @@
     font-size: 18px;    
 }
 
+/* Style for the crrent period row of the table.*/
+.currentPeriodText {
+    font-weight: 700;
+    font-size: 120%;
+}
+
 .aboutText { /* Aligns the text in the "About" page. If I was better at CSS and Bootstrap, this would look better on mobile devices. */
     padding-top: 20px;
     padding-bottom: 20px;

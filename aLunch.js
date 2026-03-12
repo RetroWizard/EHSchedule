@@ -35,14 +35,23 @@ function updateClock() { // Goal of this function is to grab the user's local ti
         }
     
         document.getElementById("currentPeriod").textContent = `Current period: ${period.name}`; // Displays what period is currently in session.
-            
+        
         const remainingSeconds = period.end - totalSeconds; // Calculates remaining seconds in the period.
     
         const remainingMinutes = Math.floor(remainingSeconds / 60); // Calculates how many minutes are left before the end of the period.
         const remainingSecs = remainingSeconds % 60; // Calculates how many seconds are left before the end of the current minute.
         
-        const isTenTen = remainingMinutes < 10 || totalSeconds < period.start + 960  // Determines if the school is in 10/10 - no movement outside of class
+        const isTenTen = remainingMinutes < 10 || totalSeconds < period.start + 960;  // Determines if the school is in 10/10 - no movement outside of class
         
+        // Loop though all the table rows and remove the CSS bold class.
+        // We cant use the p1-p7 classes since they are just half of the row.
+        for (let i = 1; i <= 7; i++) {
+            document.getElementById(`text-p${i}`)?.classList.remove("currentPeriodText");
+        }
+        document.getElementById(`text-pLunch`)?.classList.remove("currentPeriodText");
+        // Add the CSS bold class to the current period table row.
+        document.getElementById(`text-p${period.periodID}`)?.classList.add("currentPeriodText");
+
         if (isTenTen && period.name != "First Period" && period.name != "Lunch" && period.name != "After School") { // Changes the color of the "time until end" text to be red when we're in 10/10
             document.getElementById("timeUntilEnd").classList.add("inTenTen");
         }
@@ -95,16 +104,17 @@ function updateClock() { // Goal of this function is to grab the user's local ti
     
 function calculatePeriod(totalSeconds) { // Uses the amount of seconds that have passed since midnight to determine what period is active. This is the A Lunch schedule.
     const periods = [ // Array that includes the start and end time of each class. (In seconds since midnight)
-        { name: "Before School", start: 0,     end: 26400 },
-        { name: "Period 1",      start: 26400, end: 29640 },
-        { name: "Period 2",      start: 29640, end: 33000 },
-        { name: "Period 3",      start: 33000, end: 36360 },
-        { name: "Period 4",      start: 36360, end: 39720 },
-        { name: "Lunch",         start: 39720, end: 41520 },
-        { name: "Period 5",      start: 41520, end: 44880 },
-        { name: "Period 6",      start: 44880, end: 48240 },
-        { name: "Period 7",      start: 48240, end: 51600 },
-        { name: "After School",  start: 51600, end: 86400 },
+                      // The periodID helps tell what the period is in a number, instead of slicing the name.
+        { name: "Before School", start: 0,     end: 26400, periodID: "0" },
+        { name: "Period 1",      start: 26400, end: 29640, periodID: "1" },
+        { name: "Period 2",      start: 29640, end: 33000, periodID: "2" },
+        { name: "Period 3",      start: 33000, end: 36360, periodID: "3" },
+        { name: "Period 4",      start: 36360, end: 39720, periodID: "4" },
+        { name: "Lunch",         start: 39720, end: 41520, periodID: "Lunch" },
+        { name: "Period 5",      start: 41520, end: 44880, periodID: "5" },
+        { name: "Period 6",      start: 44880, end: 48240, periodID: "6" },
+        { name: "Period 7",      start: 48240, end: 51600, periodID: "7" },
+        { name: "After School",  start: 51600, end: 86400, periodID: "0" },
     ];
 
     for (const period of periods) { // For loop that juxtaposes the amount of seconds that have currently passed since midnight with the amount of seconds that have passed since midnight in each period.
@@ -117,17 +127,18 @@ function calculatePeriod(totalSeconds) { // Uses the amount of seconds that have
 
 function calculatePeriodWednesday(totalSeconds) { // Same thing, but for the Wednesday schedule
     // These arrays are a pain to fill out. So many numbers...
+    // The periodID helps tell what the period is in a number, instead of slicing the name.
     const periods = [
-        { name: "Before School", start: 0,     end: 26400 },
-        { name: "Period 1",      start: 26400, end: 29040 },
-        { name: "Period 2",      start: 29040, end: 31800 },
-        { name: "Period 3",      start: 31800, end: 34560 },
-        { name: "Period 4",      start: 34560, end: 37320 },
-        { name: "Lunch",         start: 37320, end: 39120 },
-        { name: "Period 5",      start: 39120, end: 41880 },
-        { name: "Period 6",      start: 41880, end: 44640 },
-        { name: "Period 7",      start: 44640, end: 47400 },
-        { name: "After School",  start: 47400, end: 86400 },
+        { name: "Before School", start: 0,     end: 26400, periodID: "0" },
+        { name: "Period 1",      start: 26400, end: 29040, periodID: "1" },
+        { name: "Period 2",      start: 29040, end: 31800, periodID: "2" },
+        { name: "Period 3",      start: 31800, end: 34560, periodID: "3" },
+        { name: "Period 4",      start: 34560, end: 37320, periodID: "4" },
+        { name: "Lunch",         start: 37320, end: 39120, periodID: "Lunch" },
+        { name: "Period 5",      start: 39120, end: 41880, periodID: "5" },
+        { name: "Period 6",      start: 41880, end: 44640, periodID: "8" },
+        { name: "Period 7",      start: 44640, end: 47400, periodID: "7" },
+        { name: "After School",  start: 47400, end: 86400, periodID: "0" },
     ];
 
     for (const period of periods) {

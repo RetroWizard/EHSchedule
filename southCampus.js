@@ -43,7 +43,16 @@ function updateClock() {
         const remainingMinutes = Math.floor(remainingSeconds / 60);
         const remainingSecs = remainingSeconds % 60;
         
-        const isTenTen = remainingMinutes < 10 || totalSeconds < period.start + 1200
+        const isTenTen = remainingMinutes < 10 || totalSeconds < period.start + 1200;
+
+        // Loop though all the table rows and remove the CSS bold class.
+        // We cant use the p1-p7 classes since they are just half of the row.
+        for (let i = 1; i <= 7; i++) {
+            document.getElementById(`text-p${i}`)?.classList.remove("currentPeriodText");
+        }
+        document.getElementById(`text-pLunch`)?.classList.remove("currentPeriodText");
+        // Add the CSS bold class to the current period table row.
+        document.getElementById(`text-p${period.periodID}`)?.classList.add("currentPeriodText");
         
         if (isTenTen && period.name != "First Period" && period.name != "Lunch" && period.name != "After School") {
             document.getElementById("timeUntilEnd").classList.add("inTenTen");
@@ -96,16 +105,16 @@ function updateClock() {
 
 function calculatePeriod(totalSeconds) {
     const periods = [
-        { name: "Before School", start: 0,     end: 26400 },
-        { name: "Period 1",      start: 26400, end: 29520 },
-        { name: "Period 2",      start: 29520, end: 32880 },
-        { name: "Period 3",      start: 32880, end: 36240 },
-        { name: "Period 4",      start: 36240, end: 39600 },
-        { name: "Period 5",      start: 39600, end: 42960 },
-        { name: "Lunch",         start: 42960, end: 44760 },
-        { name: "Period 6",      start: 44760, end: 48120 },
-        { name: "Period 7",      start: 48120, end: 51480 },
-        { name: "After School",  start: 51480, end: 86400 },
+        { name: "Before School", start: 0,     end: 26400, periodID: "0" },
+        { name: "Period 1",      start: 26400, end: 29520, periodID: "1" },
+        { name: "Period 2",      start: 29520, end: 32880, periodID: "2" },
+        { name: "Period 3",      start: 32880, end: 36240, periodID: "3" },
+        { name: "Period 4",      start: 36240, end: 39600, periodID: "4" },
+        { name: "Period 5",      start: 39600, end: 42960, periodID: "Lunch" },
+        { name: "Lunch",         start: 42960, end: 44760, periodID: "5" },
+        { name: "Period 6",      start: 44760, end: 48120, periodID: "6" },
+        { name: "Period 7",      start: 48120, end: 51480, periodID: "7" },
+        { name: "After School",  start: 51480, end: 86400, periodID: "0" },
     ];
 
     for (const period of periods) {
@@ -118,16 +127,16 @@ function calculatePeriod(totalSeconds) {
 
 function calculatePeriodWednesday(totalSeconds) {
     const periods = [
-        { name: "Before School", start: 0,     end: 26400 },
-        { name: "Period 1",      start: 26400, end: 28920 },
-        { name: "Period 2",      start: 28920, end: 31680 },
-        { name: "Period 3",      start: 31680, end: 34440 },
-        { name: "Period 4",      start: 34440, end: 37200 },
-        { name: "Period 5",      start: 37200, end: 39960 },
-        { name: "Lunch",         start: 39960, end: 41760 },
-        { name: "Period 6",      start: 41760, end: 44520 },
-        { name: "Period 7",      start: 44520, end: 47280 },
-        { name: "After School",  start: 47280, end: 86400 },
+        { name: "Before School", start: 0,     end: 26400, periodID: "0" },
+        { name: "Period 1",      start: 26400, end: 28920, periodID: "1" },
+        { name: "Period 2",      start: 28920, end: 31680, periodID: "2" },
+        { name: "Period 3",      start: 31680, end: 34440, periodID: "3" },
+        { name: "Period 4",      start: 34440, end: 37200, periodID: "4" },
+        { name: "Period 5",      start: 37200, end: 39960, periodID: "Lunch" },
+        { name: "Lunch",         start: 39960, end: 41760, periodID: "5" },
+        { name: "Period 6",      start: 41760, end: 44520, periodID: "6" },
+        { name: "Period 7",      start: 44520, end: 47280, periodID: "7" },
+        { name: "After School",  start: 47280, end: 86400, periodID: "0" },
     ];
 
     for (const period of periods) {
